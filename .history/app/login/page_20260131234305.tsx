@@ -8,6 +8,13 @@ import { Sparkles, Loader2, ArrowLeft, Mail, Lock, Eye, EyeOff, User } from 'luc
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
+// Facebook Icon
+const FacebookIcon = () => (
+  <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor">
+    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+  </svg>
+);
+
 export default function LoginPage() {
   const [isSignUp, setIsSignUp] = useState(false);
   const [email, setEmail] = useState('');
@@ -16,11 +23,35 @@ export default function LoginPage() {
   const [fullName, setFullName] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isFacebookLoading, setIsFacebookLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   
   const supabase = createClient();
   const router = useRouter();
+
+  const handleFacebookLogin = async () => {
+    try {
+      setIsFacebookLoading(true);
+      setError(null);
+
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'facebook',
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback`,
+          scopes: 'email,public_profile',
+        },
+      });
+
+      if (error) {
+        setError(error.message);
+        setIsFacebookLoading(false);
+      }
+    } catch (err) {
+      setError('Có lỗi xảy ra. Vui lòng thử lại.');
+      setIsFacebookLoading(false);
+    }
+  };
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -212,6 +243,39 @@ export default function LoginPage() {
               {error}
             </motion.div>
           )}
+
+          {/* Facebook Login Button */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.35 }}
+          >
+            <Button
+              type="button"
+              onClick={handleFacebookLogin}
+              disabled={isFacebookLoading || isLoading}
+              className="w-full h-12 bg-[#1877F2] hover:bg-[#166FE5] text-white rounded-xl font-medium text-base shadow-lg shadow-blue-500/25 transition-all duration-200"
+            >
+              {isFacebookLoading ? (
+                <Loader2 className="w-5 h-5 animate-spin mr-2" />
+              ) : (
+                <FacebookIcon />
+              )}
+              <span className="ml-2">
+                {isFacebookLoading ? 'Đang đăng nhập...' : 'Tiếp tục với Facebook'}
+              </span>
+            </Button>
+          </motion.div>
+
+          {/* Divider */}
+          <div className="relative my-6">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-border"></div>
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-card px-3 text-muted-foreground">Hoặc dùng Email</span>
+            </div>
+          </div>
 
           {/* Form */}
           <motion.form
