@@ -915,10 +915,6 @@ export default function LandingPage() {
             </div>
           </div>
         </footer>
-
-        {/* Floating buttons */}
-        <BackToTop />
-        <ContactButtons />
       </main>
     </>
   );
