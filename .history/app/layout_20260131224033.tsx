@@ -1,18 +1,18 @@
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import { ThemeProvider } from '@/components/theme-provider';
-import './globals.css';
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import { ThemeProvider } from "@/components/theme-provider";
+import "./globals.css";
 
 const inter = Inter({
-  variable: '--font-inter',
-  subsets: ['latin', 'vietnamese'],
+  variable: "--font-inter",
+  subsets: ["latin", "vietnamese"],
 });
 
 export const metadata: Metadata = {
-  title: 'Art Club Fund Manager',
-  description: 'Quản lý quỹ CLB Nghệ Thuật - Hát, Nhảy, Rap, Nhạc Cụ',
+  title: "Art Club Fund Manager",
+  description: "Quản lý quỹ CLB Nghệ Thuật - Hát, Nhảy, Rap, Nhạc Cụ",
   icons: {
-    icon: '/favicon.ico',
+    icon: "/favicon.ico",
   },
 };
 

@@ -1,143 +1,127 @@
-'use client';
+"use client";
 
-import { motion, AnimatePresence } from 'framer-motion';
-import Link from 'next/link';
-import {
-  Mic2,
-  Music,
-  Disc3,
-  Guitar,
-  Sparkles,
-  ArrowRight,
-  Crown,
-  Star,
-  ChevronLeft,
-  ChevronRight,
-  Users,
-  Calendar,
-  Trophy,
-  Heart,
-} from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Header } from '@/components/header';
-import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
+import { Mic2, Music, Disc3, Guitar, Sparkles, ArrowRight, Crown, Star, ChevronLeft, ChevronRight, Users, Calendar, Trophy, Heart } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Header } from "@/components/header";
+import { useState, useEffect } from "react";
 
 // Departments data
 const departments = [
   {
-    name: 'Singing',
+    name: "Singing",
     icon: Mic2,
-    description:
-      'Express your voice and captivate the audience with powerful vocals',
-    gradient: 'from-pink-500 to-rose-500',
-    color: 'pink',
+    description: "Express your voice and captivate the audience with powerful vocals",
+    gradient: "from-pink-500 to-rose-500",
+    color: "pink",
   },
   {
-    name: 'Dance',
+    name: "Dance",
     icon: Music,
-    description: 'Move your body to the rhythm and tell stories through motion',
-    gradient: 'from-purple-500 to-violet-500',
-    color: 'purple',
+    description: "Move your body to the rhythm and tell stories through motion",
+    gradient: "from-purple-500 to-violet-500",
+    color: "purple",
   },
   {
-    name: 'Rap',
+    name: "Rap",
     icon: Disc3,
-    description: 'Flow with words and beats to create powerful lyrical art',
-    gradient: 'from-amber-500 to-orange-500',
-    color: 'amber',
+    description: "Flow with words and beats to create powerful lyrical art",
+    gradient: "from-amber-500 to-orange-500",
+    color: "amber",
   },
   {
-    name: 'Instruments',
+    name: "Instruments",
     icon: Guitar,
-    description: 'Master your instrument and create beautiful melodies',
-    gradient: 'from-cyan-500 to-blue-500',
-    color: 'cyan',
+    description: "Master your instrument and create beautiful melodies",
+    gradient: "from-cyan-500 to-blue-500",
+    color: "cyan",
   },
 ];
 
 // Leadership team
 const executives = [
   {
-    name: 'Nguyễn Văn A',
-    role: 'Chủ Nhiệm CLB',
-    image: '/avatars/president.jpg',
-    description: 'Điều hành và phát triển CLB',
-    badge: 'President',
-    gradient: 'from-yellow-400 via-amber-500 to-orange-500',
-    emoji: '👑',
+    name: "Nguyễn Văn A",
+    role: "Chủ Nhiệm CLB",
+    image: "/avatars/president.jpg",
+    description: "Điều hành và phát triển CLB",
+    badge: "President",
+    gradient: "from-yellow-400 via-amber-500 to-orange-500",
+    emoji: "👑",
   },
   {
-    name: 'Trần Thị B',
-    role: 'Phó Chủ Nhiệm',
-    image: '/avatars/vice-president.jpg',
-    description: 'Hỗ trợ điều hành & đối ngoại',
-    badge: 'Vice President',
-    gradient: 'from-purple-400 via-violet-500 to-indigo-500',
-    emoji: '⭐',
+    name: "Trần Thị B",
+    role: "Phó Chủ Nhiệm",
+    image: "/avatars/vice-president.jpg",
+    description: "Hỗ trợ điều hành & đối ngoại",
+    badge: "Vice President",
+    gradient: "from-purple-400 via-violet-500 to-indigo-500",
+    emoji: "⭐",
   },
   {
-    name: 'Lê Văn C',
-    role: 'Cố Vấn CLB',
-    image: '/avatars/advisor.jpg',
-    description: 'Định hướng & tư vấn chiến lược',
-    badge: 'Advisor',
-    gradient: 'from-emerald-400 via-teal-500 to-cyan-500',
-    emoji: '🎯',
+    name: "Lê Văn C",
+    role: "Cố Vấn CLB",
+    image: "/avatars/advisor.jpg",
+    description: "Định hướng & tư vấn chiến lược",
+    badge: "Advisor",
+    gradient: "from-emerald-400 via-teal-500 to-cyan-500",
+    emoji: "🎯",
   },
 ];
 
 // Team leaders
 const teamLeaders = [
   {
-    name: 'Phạm Thị D',
-    role: 'Leader Team Hát',
-    team: 'Singing',
-    image: '/avatars/singing-leader.jpg',
-    gradient: 'from-pink-500 to-rose-500',
+    name: "Phạm Thị D",
+    role: "Leader Team Hát",
+    team: "Singing",
+    image: "/avatars/singing-leader.jpg",
+    gradient: "from-pink-500 to-rose-500",
     icon: Mic2,
-    quote: 'Giọng hát là linh hồn của âm nhạc',
+    quote: "Giọng hát là linh hồn của âm nhạc",
   },
   {
-    name: 'Hoàng Văn E',
-    role: 'Leader Team Dance',
-    team: 'Dance',
-    image: '/avatars/dance-leader.jpg',
-    gradient: 'from-purple-500 to-violet-500',
+    name: "Hoàng Văn E",
+    role: "Leader Team Dance",
+    team: "Dance",
+    image: "/avatars/dance-leader.jpg",
+    gradient: "from-purple-500 to-violet-500",
     icon: Music,
-    quote: 'Mỗi bước nhảy là một câu chuyện',
+    quote: "Mỗi bước nhảy là một câu chuyện",
   },
   {
-    name: 'Vũ Thị F',
-    role: 'Leader Team Rap',
-    team: 'Rap',
-    image: '/avatars/rap-leader.jpg',
-    gradient: 'from-amber-500 to-orange-500',
+    name: "Vũ Thị F",
+    role: "Leader Team Rap",
+    team: "Rap",
+    image: "/avatars/rap-leader.jpg",
+    gradient: "from-amber-500 to-orange-500",
     icon: Disc3,
-    quote: 'Flow là ngôn ngữ của đường phố',
+    quote: "Flow là ngôn ngữ của đường phố",
   },
 ];
 
 // Club members - expanded
 const members = [
-  { name: 'Minh Anh', department: 'Singing', initial: 'MA' },
-  { name: 'Hải Đăng', department: 'Dance', initial: 'HĐ' },
-  { name: 'Thu Hà', department: 'Rap', initial: 'TH' },
-  { name: 'Quốc Bảo', department: 'Instruments', initial: 'QB' },
-  { name: 'Lan Anh', department: 'Singing', initial: 'LA' },
-  { name: 'Đức Anh', department: 'Dance', initial: 'ĐA' },
-  { name: 'Phương Linh', department: 'Rap', initial: 'PL' },
-  { name: 'Tuấn Kiệt', department: 'Instruments', initial: 'TK' },
-  { name: 'Ngọc Mai', department: 'Singing', initial: 'NM' },
-  { name: 'Hoàng Nam', department: 'Dance', initial: 'HN' },
-  { name: 'Thùy Linh', department: 'Singing', initial: 'TL' },
-  { name: 'Văn Hùng', department: 'Rap', initial: 'VH' },
+  { name: "Minh Anh", department: "Singing", initial: "MA" },
+  { name: "Hải Đăng", department: "Dance", initial: "HĐ" },
+  { name: "Thu Hà", department: "Rap", initial: "TH" },
+  { name: "Quốc Bảo", department: "Instruments", initial: "QB" },
+  { name: "Lan Anh", department: "Singing", initial: "LA" },
+  { name: "Đức Anh", department: "Dance", initial: "ĐA" },
+  { name: "Phương Linh", department: "Rap", initial: "PL" },
+  { name: "Tuấn Kiệt", department: "Instruments", initial: "TK" },
+  { name: "Ngọc Mai", department: "Singing", initial: "NM" },
+  { name: "Hoàng Nam", department: "Dance", initial: "HN" },
+  { name: "Thùy Linh", department: "Singing", initial: "TL" },
+  { name: "Văn Hùng", department: "Rap", initial: "VH" },
 ];
 
 const departmentColors: { [key: string]: string } = {
-  Singing: 'from-pink-500 to-rose-500',
-  Dance: 'from-purple-500 to-violet-500',
-  Rap: 'from-amber-500 to-orange-500',
-  Instruments: 'from-cyan-500 to-blue-500',
+  Singing: "from-pink-500 to-rose-500",
+  Dance: "from-purple-500 to-violet-500",
+  Rap: "from-amber-500 to-orange-500",
+  Instruments: "from-cyan-500 to-blue-500",
 };
 
 // Animation variants
@@ -159,7 +143,7 @@ const itemVariants = {
     y: 0,
     transition: {
       duration: 0.5,
-      ease: 'easeOut',
+      ease: "easeOut",
     },
   },
 };
@@ -171,7 +155,7 @@ const cardVariants = {
     scale: 1,
     transition: {
       duration: 0.5,
-      ease: 'easeOut',
+      ease: "easeOut",
     },
   },
 };
@@ -179,13 +163,13 @@ const cardVariants = {
 // Infinite Member Carousel Component
 function MemberCarousel() {
   const duplicatedMembers = [...members, ...members, ...members];
-
+  
   return (
     <div className="relative overflow-hidden py-8">
       {/* Gradient overlays */}
       <div className="absolute left-0 top-0 bottom-0 w-32 bg-linear-to-r from-background to-transparent z-10 pointer-events-none" />
       <div className="absolute right-0 top-0 bottom-0 w-32 bg-linear-to-l from-background to-transparent z-10 pointer-events-none" />
-
+      
       <motion.div
         className="flex gap-6"
         animate={{
@@ -194,9 +178,9 @@ function MemberCarousel() {
         transition={{
           x: {
             repeat: Infinity,
-            repeatType: 'loop',
+            repeatType: "loop",
             duration: 30,
-            ease: 'linear',
+            ease: "linear",
           },
         }}
       >
@@ -205,34 +189,24 @@ function MemberCarousel() {
             key={`${member.name}-${index}`}
             className="shrink-0"
             whileHover={{ scale: 1.1, y: -10 }}
-            transition={{ type: 'spring', stiffness: 300 }}
+            transition={{ type: "spring", stiffness: 300 }}
           >
             <div className="relative group cursor-pointer">
               {/* Glow effect */}
-              <div
-                className={`absolute inset-0 bg-linear-to-br ${departmentColors[member.department]} opacity-0 group-hover:opacity-50 blur-xl transition-opacity duration-300 rounded-full`}
-              />
-
+              <div className={`absolute inset-0 bg-linear-to-br ${departmentColors[member.department]} opacity-0 group-hover:opacity-50 blur-xl transition-opacity duration-300 rounded-full`} />
+              
               {/* Avatar */}
-              <div
-                className={`relative w-20 h-20 rounded-full bg-linear-to-br ${departmentColors[member.department]} p-[2px]`}
-              >
+              <div className={`relative w-20 h-20 rounded-full bg-linear-to-br ${departmentColors[member.department]} p-[2px]`}>
                 <div className="w-full h-full rounded-full bg-background flex items-center justify-center">
-                  <span className="text-foreground font-bold text-lg">
-                    {member.initial}
-                  </span>
+                  <span className="text-foreground font-bold text-lg">{member.initial}</span>
                 </div>
               </div>
-
+              
               {/* Tooltip on hover */}
               <div className="absolute -bottom-12 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
                 <div className="bg-card border border-border rounded-lg px-3 py-1.5 text-center shadow-lg">
-                  <p className="text-foreground text-xs font-medium">
-                    {member.name}
-                  </p>
-                  <p className="text-muted-foreground text-[10px]">
-                    {member.department}
-                  </p>
+                  <p className="text-foreground text-xs font-medium">{member.name}</p>
+                  <p className="text-muted-foreground text-[10px]">{member.department}</p>
                 </div>
               </div>
             </div>
@@ -258,11 +232,11 @@ export default function LandingPage() {
       <Header />
       <main className="min-h-screen mesh-gradient overflow-hidden">
         {/* Hero Section */}
-        <section className="min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 relative pt-20 sm:pt-16 pb-8">
+        <section className="min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 relative pt-16">
           {/* Animated background circles */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <motion.div
-              className="absolute top-1/4 left-1/4 w-64 sm:w-96 h-64 sm:h-96 bg-purple-500/20 rounded-full blur-3xl"
+              className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl"
               animate={{
                 scale: [1, 1.2, 1],
                 opacity: [0.3, 0.5, 0.3],
@@ -270,7 +244,7 @@ export default function LandingPage() {
               transition={{ duration: 8, repeat: Infinity }}
             />
             <motion.div
-              className="absolute bottom-1/4 right-1/4 w-64 sm:w-96 h-64 sm:h-96 bg-pink-500/20 rounded-full blur-3xl"
+              className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-pink-500/20 rounded-full blur-3xl"
               animate={{
                 scale: [1.2, 1, 1.2],
                 opacity: [0.5, 0.3, 0.5],
@@ -279,9 +253,9 @@ export default function LandingPage() {
             />
           </div>
 
-          {/* Floating music notes - hidden on mobile */}
-          <div className="absolute inset-0 overflow-hidden pointer-events-none hidden sm:block">
-            {['🎵', '🎶', '🎤', '🎸', '🎹', '🥁'].map((emoji, i) => (
+          {/* Floating music notes */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            {["🎵", "🎶", "🎤", "🎸", "🎹", "🥁"].map((emoji, i) => (
               <motion.div
                 key={i}
                 className="absolute text-2xl opacity-20"
@@ -309,28 +283,26 @@ export default function LandingPage() {
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            className="text-center z-10 px-2"
+            className="text-center z-10"
           >
             {/* Badge */}
             <motion.div
               variants={itemVariants}
-              className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-purple-500/10 border border-purple-500/20 mb-4 sm:mb-8 backdrop-blur-sm"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-500/10 border border-purple-500/20 mb-8 backdrop-blur-sm"
             >
-              <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 text-purple-400" />
-              <span className="text-xs sm:text-sm text-purple-300">
-                Where Art Meets Passion
-              </span>
+              <Sparkles className="w-4 h-4 text-purple-400" />
+              <span className="text-sm text-purple-300">Where Art Meets Passion</span>
             </motion.div>
 
             {/* Main Title */}
             <motion.h1
               variants={itemVariants}
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mb-4 sm:mb-6"
+              className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-6"
             >
-              <motion.span
+              <motion.span 
                 className="inline-block bg-linear-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent text-glow"
-                animate={{
-                  backgroundPosition: ['0%', '100%', '0%'],
+                animate={{ 
+                  backgroundPosition: ["0%", "100%", "0%"],
                 }}
                 transition={{ duration: 5, repeat: Infinity }}
               >
@@ -343,32 +315,28 @@ export default function LandingPage() {
             {/* Subtitle */}
             <motion.p
               variants={itemVariants}
-              className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-6 sm:mb-10 px-2 leading-relaxed"
+              className="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto mb-10 px-4"
             >
-              Unite your passion for performing arts. Track contributions,
-              manage funds, and keep the creativity flowing across all
-              departments.
+              Unite your passion for performing arts. Track contributions, manage funds, 
+              and keep the creativity flowing across all departments.
             </motion.p>
 
             {/* CTA Buttons */}
-            <motion.div
-              variants={itemVariants}
-              className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4"
-            >
+            <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/login">
                 <Button
                   size="lg"
-                  className="w-full sm:w-auto group bg-linear-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white px-6 sm:px-8 py-5 sm:py-6 text-base sm:text-lg rounded-full shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 transition-all duration-300"
+                  className="group bg-linear-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white px-8 py-6 text-lg rounded-full shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 transition-all duration-300"
                 >
                   Enter the Stage
-                  <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
               <a href="#departments">
                 <Button
                   size="lg"
                   variant="outline"
-                  className="w-full sm:w-auto border-purple-500/30 text-purple-300 hover:bg-purple-500/10 px-6 sm:px-8 py-5 sm:py-6 text-base sm:text-lg rounded-full"
+                  className="border-purple-500/30 text-purple-300 hover:bg-purple-500/10 px-8 py-6 text-lg rounded-full"
                 >
                   Khám Phá
                 </Button>
@@ -381,25 +349,22 @@ export default function LandingPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.5 }}
-            className="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2"
+            className="absolute bottom-8 left-1/2 -translate-x-1/2"
           >
             <motion.div
               animate={{ y: [0, 10, 0] }}
               transition={{ duration: 1.5, repeat: Infinity }}
-              className="w-5 h-8 sm:w-6 sm:h-10 border-2 border-purple-500/30 rounded-full flex items-start justify-center p-1.5 sm:p-2"
+              className="w-6 h-10 border-2 border-purple-500/30 rounded-full flex items-start justify-center p-2"
             >
-              <motion.div className="w-1 h-1 sm:w-1.5 sm:h-1.5 bg-purple-400 rounded-full" />
+              <motion.div className="w-1.5 h-1.5 bg-purple-400 rounded-full" />
             </motion.div>
           </motion.div>
         </section>
 
         {/* Departments Section */}
-        <section
-          id="departments"
-          className="py-24 px-4 sm:px-6 lg:px-8 relative"
-        >
+        <section id="departments" className="py-24 px-4 sm:px-6 lg:px-8 relative">
           <div className="absolute inset-0 bg-linear-to-b from-transparent via-purple-500/5 to-transparent pointer-events-none" />
-
+          
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -420,7 +385,7 @@ export default function LandingPage() {
                 Our Departments
               </span>
             </h2>
-            <p className="text-muted-foreground text-lg max-w-xl mx-auto">
+            <p className="text-gray-400 text-lg max-w-xl mx-auto">
               Four pillars of artistic expression, united under one roof
             </p>
           </motion.div>
@@ -436,15 +401,15 @@ export default function LandingPage() {
               <motion.div
                 key={dept.name}
                 variants={cardVariants}
-                whileHover={{
+                whileHover={{ 
                   scale: 1.05,
                   y: -10,
-                  transition: { duration: 0.2 },
+                  transition: { duration: 0.2 }
                 }}
                 className="card-glow group relative overflow-hidden rounded-3xl bg-card/50 backdrop-blur-sm border border-border p-8 cursor-pointer"
               >
                 {/* Animated gradient background */}
-                <motion.div
+                <motion.div 
                   className={`absolute inset-0 bg-linear-to-br ${dept.gradient} opacity-0 group-hover:opacity-15 transition-opacity duration-500`}
                   animate={{
                     background: [
@@ -455,29 +420,25 @@ export default function LandingPage() {
                   }}
                   transition={{ duration: 3, repeat: Infinity }}
                 />
-
+                
                 {/* Icon with glow */}
                 <div className="relative mb-6">
-                  <div
-                    className={`absolute inset-0 bg-linear-to-br ${dept.gradient} blur-xl opacity-50 group-hover:opacity-80 transition-opacity`}
-                  />
-                  <div
-                    className={`relative w-16 h-16 rounded-2xl bg-linear-to-br ${dept.gradient} flex items-center justify-center shadow-2xl`}
-                  >
+                  <div className={`absolute inset-0 bg-linear-to-br ${dept.gradient} blur-xl opacity-50 group-hover:opacity-80 transition-opacity`} />
+                  <div className={`relative w-16 h-16 rounded-2xl bg-linear-to-br ${dept.gradient} flex items-center justify-center shadow-2xl`}>
                     <dept.icon className="w-8 h-8 text-white" />
                   </div>
                 </div>
 
                 {/* Content */}
-                <h3 className="text-2xl font-bold text-foreground mb-3 group-hover:text-transparent group-hover:bg-linear-to-r group-hover:from-purple-500 group-hover:to-pink-500 group-hover:bg-clip-text transition-all">
+                <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-transparent group-hover:bg-linear-to-r group-hover:from-white group-hover:to-purple-200 group-hover:bg-clip-text transition-all">
                   {dept.name}
                 </h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">
+                <p className="text-gray-400 text-sm leading-relaxed">
                   {dept.description}
                 </p>
 
                 {/* Number indicator */}
-                <div className="absolute top-4 right-4 text-6xl font-bold text-foreground/5 group-hover:text-foreground/10 transition-colors">
+                <div className="absolute top-4 right-4 text-6xl font-bold text-white/5 group-hover:text-white/10 transition-colors">
                   0{index + 1}
                 </div>
               </motion.div>
@@ -486,10 +447,7 @@ export default function LandingPage() {
         </section>
 
         {/* Leadership Section */}
-        <section
-          id="leadership"
-          className="py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
-        >
+        <section id="leadership" className="py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
           {/* Background decorations */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-linear-to-b from-yellow-500/10 via-transparent to-transparent rounded-full blur-3xl" />
@@ -507,7 +465,7 @@ export default function LandingPage() {
                 initial={{ scale: 0, rotate: -180 }}
                 whileInView={{ scale: 1, rotate: 0 }}
                 viewport={{ once: true }}
-                transition={{ type: 'spring', stiffness: 200 }}
+                transition={{ type: "spring", stiffness: 200 }}
                 className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-linear-to-br from-yellow-400 to-orange-500 mb-6 shadow-lg shadow-yellow-500/25"
               >
                 <Crown className="w-10 h-10 text-white" />
@@ -517,7 +475,7 @@ export default function LandingPage() {
                   Ban Chủ Nhiệm
                 </span>
               </h2>
-              <p className="text-muted-foreground text-lg max-w-xl mx-auto">
+              <p className="text-gray-400 text-lg max-w-xl mx-auto">
                 Những người dẫn dắt và truyền cảm hứng cho CLB
               </p>
             </motion.div>
@@ -538,16 +496,12 @@ export default function LandingPage() {
                   className="relative group"
                 >
                   {/* Glow effect */}
-                  <div
-                    className={`absolute -inset-1 bg-linear-to-br ${exec.gradient} rounded-[2rem] opacity-30 blur-xl group-hover:opacity-60 transition-opacity duration-500`}
-                  />
-
+                  <div className={`absolute -inset-1 bg-linear-to-br ${exec.gradient} rounded-[2rem] opacity-30 blur-xl group-hover:opacity-60 transition-opacity duration-500`} />
+                  
                   <div className="relative bg-card/80 backdrop-blur-xl border border-white/10 rounded-[2rem] p-8 overflow-hidden h-full">
                     {/* Decorative gradient line */}
-                    <div
-                      className={`absolute top-0 left-0 right-0 h-1 bg-linear-to-r ${exec.gradient}`}
-                    />
-
+                    <div className={`absolute top-0 left-0 right-0 h-1 bg-linear-to-r ${exec.gradient}`} />
+                    
                     {/* Emoji badge */}
                     <motion.div
                       animate={{ rotate: [0, 10, -10, 0] }}
@@ -556,46 +510,30 @@ export default function LandingPage() {
                     >
                       {exec.emoji}
                     </motion.div>
-
+                    
                     {/* Avatar */}
                     <div className="relative w-28 h-28 mx-auto mb-6">
-                      <motion.div
+                      <motion.div 
                         className={`absolute inset-0 bg-linear-to-br ${exec.gradient} rounded-full`}
                         animate={{ rotate: 360 }}
-                        transition={{
-                          duration: 8,
-                          repeat: Infinity,
-                          ease: 'linear',
-                        }}
+                        transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
                       />
                       <div className="absolute inset-1 bg-card rounded-full" />
-                      <div
-                        className={`absolute inset-2 bg-linear-to-br ${exec.gradient} rounded-full flex items-center justify-center`}
-                      >
-                        <span className="text-white font-bold text-3xl">
-                          {exec.name.charAt(0)}
-                        </span>
+                      <div className={`absolute inset-2 bg-linear-to-br ${exec.gradient} rounded-full flex items-center justify-center`}>
+                        <span className="text-white font-bold text-3xl">{exec.name.charAt(0)}</span>
                       </div>
                     </div>
 
                     {/* Info */}
                     <div className="text-center">
-                      <div
-                        className={`inline-block px-3 py-1 rounded-full bg-linear-to-r ${exec.gradient} text-white text-xs font-semibold mb-3`}
-                      >
+                      <div className={`inline-block px-3 py-1 rounded-full bg-linear-to-r ${exec.gradient} text-white text-xs font-semibold mb-3`}>
                         {exec.badge}
                       </div>
-                      <h3 className="text-2xl font-bold text-foreground mb-2">
-                        {exec.name}
-                      </h3>
-                      <p
-                        className={`text-transparent bg-linear-to-r ${exec.gradient} bg-clip-text font-semibold text-lg mb-2`}
-                      >
+                      <h3 className="text-2xl font-bold text-white mb-2">{exec.name}</h3>
+                      <p className={`text-transparent bg-linear-to-r ${exec.gradient} bg-clip-text font-semibold text-lg mb-2`}>
                         {exec.role}
                       </p>
-                      <p className="text-muted-foreground text-sm">
-                        {exec.description}
-                      </p>
+                      <p className="text-gray-400 text-sm">{exec.description}</p>
                     </div>
                   </div>
                 </motion.div>
@@ -608,23 +546,21 @@ export default function LandingPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="text-center mb-8 sm:mb-12"
+              className="text-center mb-12"
             >
-              <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-purple-500/10 border border-purple-500/20 mb-4 sm:mb-6">
-                <Star className="w-3 h-3 sm:w-4 sm:h-4 text-purple-400" />
-                <span className="text-xs sm:text-sm text-purple-300">
-                  Team Leaders
-                </span>
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-500/10 border border-purple-500/20 mb-6">
+                <Star className="w-4 h-4 text-purple-400" />
+                <span className="text-sm text-purple-300">Team Leaders</span>
               </div>
-              <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-4">
+              <h3 className="text-2xl sm:text-3xl font-bold text-white mb-4">
                 Các Trưởng Nhóm
               </h3>
             </motion.div>
 
-            {/* Interactive Leader Showcase - Horizontal Scroll on Mobile */}
+            {/* Interactive Leader Showcase */}
             <div className="relative max-w-4xl mx-auto">
-              {/* Leader Cards - Horizontal scroll on mobile */}
-              <div className="flex md:grid md:grid-cols-3 gap-4 sm:gap-6 overflow-x-auto pb-4 md:pb-0 snap-x snap-mandatory scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0">
+              {/* Leader Cards */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {teamLeaders.map((leader, index) => (
                   <motion.div
                     key={leader.name}
@@ -634,7 +570,7 @@ export default function LandingPage() {
                     transition={{ delay: index * 0.15 }}
                     whileHover={{ y: -10 }}
                     onClick={() => setActiveLeader(index)}
-                    className={`relative cursor-pointer group snap-center shrink-0 w-[280px] sm:w-[300px] md:w-auto ${activeLeader === index ? 'z-10' : 'z-0'}`}
+                    className={`relative cursor-pointer group ${activeLeader === index ? 'z-10' : 'z-0'}`}
                   >
                     {/* Active glow */}
                     <AnimatePresence>
@@ -647,44 +583,34 @@ export default function LandingPage() {
                         />
                       )}
                     </AnimatePresence>
-
-                    <div
-                      className={`relative bg-card/80 backdrop-blur-sm border rounded-2xl p-5 sm:p-6 transition-all duration-300 h-full ${
-                        activeLeader === index
-                          ? 'border-white/30 bg-card'
-                          : 'border-border hover:border-white/20'
-                      }`}
-                    >
+                    
+                    <div className={`relative bg-card/80 backdrop-blur-sm border rounded-2xl p-6 transition-all duration-300 ${
+                      activeLeader === index 
+                        ? 'border-white/30 bg-card' 
+                        : 'border-border hover:border-white/20'
+                    }`}>
                       {/* Team badge */}
-                      <div
-                        className={`absolute -top-3 left-1/2 -translate-x-1/2 px-3 sm:px-4 py-1 rounded-full bg-linear-to-r ${leader.gradient} text-white text-[10px] sm:text-xs font-bold shadow-lg`}
-                      >
+                      <div className={`absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-linear-to-r ${leader.gradient} text-white text-xs font-bold shadow-lg`}>
                         {leader.team}
                       </div>
 
                       {/* Icon & Avatar */}
-                      <div className="flex flex-col items-center mt-3 sm:mt-4">
-                        <div
-                          className={`w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-linear-to-br ${leader.gradient} flex items-center justify-center mb-3 sm:mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300`}
-                        >
-                          <leader.icon className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
+                      <div className="flex flex-col items-center mt-4">
+                        <div className={`w-20 h-20 rounded-2xl bg-linear-to-br ${leader.gradient} flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                          <leader.icon className="w-10 h-10 text-white" />
                         </div>
-
-                        <h4 className="text-lg sm:text-xl font-bold text-foreground mb-1">
-                          {leader.name}
-                        </h4>
-                        <p className="text-muted-foreground text-xs sm:text-sm mb-2 sm:mb-3">
-                          {leader.role}
-                        </p>
-
-                        {/* Quote - always shown on mobile for active card */}
+                        
+                        <h4 className="text-xl font-bold text-white mb-1">{leader.name}</h4>
+                        <p className="text-gray-400 text-sm mb-3">{leader.role}</p>
+                        
+                        {/* Quote - shown when active */}
                         <AnimatePresence>
                           {activeLeader === index && (
                             <motion.p
                               initial={{ opacity: 0, height: 0 }}
-                              animate={{ opacity: 1, height: 'auto' }}
+                              animate={{ opacity: 1, height: "auto" }}
                               exit={{ opacity: 0, height: 0 }}
-                              className="text-muted-foreground text-xs sm:text-sm italic text-center border-t border-border pt-2 sm:pt-3 mt-2"
+                              className="text-gray-300 text-sm italic text-center border-t border-border pt-3 mt-2"
                             >
                               "{leader.quote}"
                             </motion.p>
@@ -703,8 +629,8 @@ export default function LandingPage() {
                     key={index}
                     onClick={() => setActiveLeader(index)}
                     className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                      activeLeader === index
-                        ? 'w-8 bg-purple-500'
+                      activeLeader === index 
+                        ? 'w-8 bg-purple-500' 
                         : 'bg-gray-600 hover:bg-gray-500'
                     }`}
                   />
@@ -715,13 +641,10 @@ export default function LandingPage() {
         </section>
 
         {/* Members Section */}
-        <section
-          id="members"
-          className="py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
-        >
+        <section id="members" className="py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
           {/* Background */}
           <div className="absolute inset-0 bg-linear-to-b from-transparent via-purple-500/5 to-transparent pointer-events-none" />
-
+          
           <div className="max-w-6xl mx-auto relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -767,30 +690,10 @@ export default function LandingPage() {
               className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-20"
             >
               {[
-                {
-                  number: '20+',
-                  label: 'Thành viên',
-                  icon: Users,
-                  color: 'from-purple-500 to-violet-500',
-                },
-                {
-                  number: '4',
-                  label: 'Ban nghệ thuật',
-                  icon: Music,
-                  color: 'from-pink-500 to-rose-500',
-                },
-                {
-                  number: '20+',
-                  label: 'Sự kiện/năm',
-                  icon: Calendar,
-                  color: 'from-amber-500 to-orange-500',
-                },
-                {
-                  number: '5+',
-                  label: 'Năm hoạt động',
-                  icon: Trophy,
-                  color: 'from-emerald-500 to-teal-500',
-                },
+                { number: "20+", label: "Thành viên", icon: Users, color: "from-purple-500 to-violet-500" },
+                { number: "4", label: "Ban nghệ thuật", icon: Music, color: "from-pink-500 to-rose-500" },
+                { number: "20+", label: "Sự kiện/năm", icon: Calendar, color: "from-amber-500 to-orange-500" },
+                { number: "5+", label: "Năm hoạt động", icon: Trophy, color: "from-emerald-500 to-teal-500" },
               ].map((stat, index) => (
                 <motion.div
                   key={index}
@@ -801,23 +704,15 @@ export default function LandingPage() {
                   whileHover={{ y: -5, scale: 1.02 }}
                   className="relative group"
                 >
-                  <div
-                    className={`absolute inset-0 bg-linear-to-br ${stat.color} opacity-0 group-hover:opacity-20 rounded-2xl blur-xl transition-opacity duration-300`}
-                  />
+                  <div className={`absolute inset-0 bg-linear-to-br ${stat.color} opacity-0 group-hover:opacity-20 rounded-2xl blur-xl transition-opacity duration-300`} />
                   <div className="relative text-center p-6 bg-card/50 backdrop-blur-sm rounded-2xl border border-border group-hover:border-white/20 transition-colors">
-                    <div
-                      className={`inline-flex items-center justify-center w-12 h-12 rounded-xl bg-linear-to-br ${stat.color} mb-4`}
-                    >
+                    <div className={`inline-flex items-center justify-center w-12 h-12 rounded-xl bg-linear-to-br ${stat.color} mb-4`}>
                       <stat.icon className="w-6 h-6 text-white" />
                     </div>
-                    <div
-                      className={`text-4xl sm:text-5xl font-bold bg-linear-to-r ${stat.color} bg-clip-text text-transparent mb-2`}
-                    >
+                    <div className={`text-4xl sm:text-5xl font-bold bg-linear-to-r ${stat.color} bg-clip-text text-transparent mb-2`}>
                       {stat.number}
                     </div>
-                    <div className="text-gray-400 text-sm font-medium">
-                      {stat.label}
-                    </div>
+                    <div className="text-gray-400 text-sm font-medium">{stat.label}</div>
                   </div>
                 </motion.div>
               ))}
@@ -838,35 +733,30 @@ export default function LandingPage() {
               <motion.div
                 className="absolute inset-0 bg-linear-to-r from-purple-500 via-pink-500 to-purple-500 rounded-[2rem]"
                 animate={{
-                  backgroundPosition: ['0%', '100%', '0%'],
+                  backgroundPosition: ["0%", "100%", "0%"],
                 }}
                 transition={{ duration: 3, repeat: Infinity }}
               />
-
-              <div className="relative m-[2px] bg-background rounded-[calc(2rem-2px)] p-12">
+              
+              <div className="relative m-[2px] bg-[#0a0a0a] rounded-[calc(2rem-2px)] p-12">
                 {/* Decorative elements */}
                 <div className="absolute top-0 left-0 w-40 h-40 bg-purple-500/20 rounded-full blur-3xl" />
                 <div className="absolute bottom-0 right-0 w-40 h-40 bg-pink-500/20 rounded-full blur-3xl" />
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-60 h-60 bg-violet-500/10 rounded-full blur-3xl" />
-
+                
                 <div className="relative z-10">
                   <motion.div
                     animate={{ rotate: [0, 360] }}
-                    transition={{
-                      duration: 20,
-                      repeat: Infinity,
-                      ease: 'linear',
-                    }}
+                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
                     className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-linear-to-br from-purple-500 to-pink-500 mb-6"
                   >
                     <Heart className="w-10 h-10 text-white" />
                   </motion.div>
-                  <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">
+                  <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
                     Sẵn sàng tham gia?
                   </h2>
-                  <p className="text-muted-foreground mb-8 max-w-xl mx-auto text-lg">
-                    Đăng nhập để quản lý quỹ CLB, theo dõi đóng góp và kết nối
-                    với các thành viên khác.
+                  <p className="text-gray-300 mb-8 max-w-xl mx-auto text-lg">
+                    Đăng nhập để quản lý quỹ CLB, theo dõi đóng góp và kết nối với các thành viên khác.
                   </p>
                   <Link href="/login">
                     <Button
@@ -892,16 +782,14 @@ export default function LandingPage() {
                 <div className="w-10 h-10 rounded-xl bg-linear-to-br from-purple-500 to-pink-500 flex items-center justify-center shadow-lg shadow-purple-500/25">
                   <Sparkles className="w-5 h-5 text-white" />
                 </div>
-                <span className="font-bold text-xl text-foreground">
-                  Art Club Fund Manager
-                </span>
+                <span className="font-bold text-xl text-white">Art Club Fund Manager</span>
               </div>
               <div className="flex items-center gap-6">
-                {['Facebook', 'Instagram', 'TikTok'].map((social) => (
+                {["Facebook", "Instagram", "TikTok"].map((social) => (
                   <a
                     key={social}
                     href="#"
-                    className="text-muted-foreground hover:text-foreground text-sm transition-colors"
+                    className="text-gray-400 hover:text-white text-sm transition-colors"
                   >
                     {social}
                   </a>

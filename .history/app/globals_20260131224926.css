@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 /* Light theme - elegant and modern */
 :root {
@@ -79,7 +79,7 @@ body {
 
 /* Glowing text effect - dark mode only */
 .dark .text-glow {
-  text-shadow:
+  text-shadow: 
     0 0 10px rgba(168, 85, 247, 0.5),
     0 0 20px rgba(168, 85, 247, 0.3),
     0 0 30px rgba(168, 85, 247, 0.2),
@@ -88,7 +88,7 @@ body {
 
 /* Light mode text glow - subtle */
 .text-glow {
-  text-shadow:
+  text-shadow: 
     0 0 10px rgba(147, 51, 234, 0.2),
     0 0 20px rgba(147, 51, 234, 0.1);
 }
@@ -96,29 +96,13 @@ body {
 /* Mesh gradient background - dark mode */
 .dark .mesh-gradient {
   background-color: #0a0a0a;
-  background-image:
-    radial-gradient(
-      at 40% 20%,
-      hsla(280, 100%, 50%, 0.12) 0px,
-      transparent 50%
-    ),
+  background-image: 
+    radial-gradient(at 40% 20%, hsla(280, 100%, 50%, 0.12) 0px, transparent 50%),
     radial-gradient(at 80% 0%, hsla(189, 100%, 40%, 0.08) 0px, transparent 50%),
     radial-gradient(at 0% 50%, hsla(355, 100%, 50%, 0.08) 0px, transparent 50%),
-    radial-gradient(
-      at 80% 50%,
-      hsla(340, 100%, 50%, 0.08) 0px,
-      transparent 50%
-    ),
-    radial-gradient(
-      at 0% 100%,
-      hsla(260, 100%, 50%, 0.12) 0px,
-      transparent 50%
-    ),
-    radial-gradient(
-      at 80% 100%,
-      hsla(200, 100%, 50%, 0.08) 0px,
-      transparent 50%
-    ),
+    radial-gradient(at 80% 50%, hsla(340, 100%, 50%, 0.08) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, hsla(260, 100%, 50%, 0.12) 0px, transparent 50%),
+    radial-gradient(at 80% 100%, hsla(200, 100%, 50%, 0.08) 0px, transparent 50%),
     radial-gradient(at 0% 0%, hsla(300, 100%, 50%, 0.08) 0px, transparent 50%);
   background-attachment: fixed;
 }
@@ -126,29 +110,13 @@ body {
 /* Mesh gradient background - light mode */
 .mesh-gradient {
   background-color: #fafafa;
-  background-image:
-    radial-gradient(
-      at 40% 20%,
-      hsla(280, 100%, 70%, 0.08) 0px,
-      transparent 50%
-    ),
+  background-image: 
+    radial-gradient(at 40% 20%, hsla(280, 100%, 70%, 0.08) 0px, transparent 50%),
     radial-gradient(at 80% 0%, hsla(189, 100%, 60%, 0.05) 0px, transparent 50%),
     radial-gradient(at 0% 50%, hsla(355, 100%, 70%, 0.05) 0px, transparent 50%),
-    radial-gradient(
-      at 80% 50%,
-      hsla(340, 100%, 70%, 0.05) 0px,
-      transparent 50%
-    ),
-    radial-gradient(
-      at 0% 100%,
-      hsla(260, 100%, 70%, 0.08) 0px,
-      transparent 50%
-    ),
-    radial-gradient(
-      at 80% 100%,
-      hsla(200, 100%, 60%, 0.05) 0px,
-      transparent 50%
-    ),
+    radial-gradient(at 80% 50%, hsla(340, 100%, 70%, 0.05) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, hsla(260, 100%, 70%, 0.08) 0px, transparent 50%),
+    radial-gradient(at 80% 100%, hsla(200, 100%, 60%, 0.05) 0px, transparent 50%),
     radial-gradient(at 0% 0%, hsla(300, 100%, 70%, 0.05) 0px, transparent 50%);
   background-attachment: fixed;
 }
@@ -159,7 +127,7 @@ body {
 }
 
 .dark .card-glow:hover {
-  box-shadow:
+  box-shadow: 
     0 0 20px rgba(168, 85, 247, 0.25),
     0 0 40px rgba(168, 85, 247, 0.08);
   border-color: rgba(168, 85, 247, 0.4);
@@ -171,7 +139,7 @@ body {
 }
 
 .card-glow:hover {
-  box-shadow:
+  box-shadow: 
     0 4px 20px rgba(147, 51, 234, 0.15),
     0 8px 40px rgba(147, 51, 234, 0.08);
   border-color: rgba(147, 51, 234, 0.3);
@@ -216,14 +184,4 @@ html {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #a3a3a3;
-}
-
-/* Hide scrollbar for horizontal scroll on mobile */
-.scrollbar-hide {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
 }
