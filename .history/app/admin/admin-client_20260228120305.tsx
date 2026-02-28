@@ -1167,13 +1167,13 @@ export default function AdminClient({
                 <table className="w-full min-w-max">
                   <thead>
                     <tr className="border-b border-border bg-muted/50">
-                      <th className="sticky left-0 z-10 bg-muted/95 backdrop-blur-sm px-4 py-3 text-left font-semibold text-foreground min-w-50">
+                      <th className="sticky left-0 z-10 bg-muted/95 backdrop-blur-sm px-4 py-3 text-left font-semibold text-foreground min-w-[200px]">
                         Thành viên
                       </th>
                       {matrixData.weeks.map((week) => (
                         <th
                           key={week}
-                          className={`px-2 py-3 text-center font-medium text-xs whitespace-nowrap min-w-15 ${
+                          className={`px-2 py-3 text-center font-medium text-xs whitespace-nowrap min-w-[60px] ${
                             week === matrixData.currentWeek
                               ? 'bg-purple-500/20 text-purple-400'
                               : 'text-muted-foreground'
@@ -1206,7 +1206,7 @@ export default function AdminClient({
                                 <DeptIcon className="w-4 h-4 text-white" />
                               </div>
                               <div className="min-w-0">
-                                <p className="font-medium text-foreground text-sm truncate max-w-35">
+                                <p className="font-medium text-foreground text-sm truncate max-w-[140px]">
                                   {member.fullName}
                                 </p>
                                 <p className="text-xs text-muted-foreground">
