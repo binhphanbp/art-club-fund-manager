@@ -1,0 +1,89 @@
+// This is your Prisma schema file
+// Learn more: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// Enums
+enum Role {
+  SUPER_ADMIN
+  ADMIN
+  MEMBER
+}
+
+enum Department {
+  SINGING
+  DANCE
+  RAP
+  INSTRUMENT
+}
+
+enum ContributionStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+// Models
+model User {
+  id            String         @id @default(uuid()) @db.Uuid
+  email         String         @unique
+  fullName      String
+  role          Role           @default(MEMBER)
+  department    Department
+  contributions Contribution[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  @@map("users")
+}
+
+model Contribution {
+  id        String             @id @default(uuid()) @db.Uuid
+  week      String
+  imageUrl  String
+  amount    Int                @default(20000)
+  status    ContributionStatus @default(PENDING)
+  memberId  String             @db.Uuid
+  member    User               @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  isLocked  Boolean            @default(false) // Locked after month-end closing
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
+
+  @@index([memberId])
+  @@index([status])
+  @@map("contributions")
+}
+
+// Month-end closing records
+model MonthlyClose {
+  id           String   @id @default(uuid()) @db.Uuid
+  month        Int      // 1-12
+  year         Int
+  totalAmount  Int      // Total approved amount for that month
+  closedBy     String   // Admin who closed the books
+  closedAt     DateTime @default(now())
+  
+  @@unique([month, year])
+  @@map("monthly_closes")
+}
+
+model Settings {
+  id              String   @id @default("club-settings")
+  weeklyFundAmount Int      @default(20000)
+  clubName        String   @default("CLB Nghệ Thuật")
+  bankAccount     String   @default("0123456789")
+  bankName        String   @default("ABC Bank")
+  bankOwner       String   @default("CLB NGHE THUAT")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("settings")
+}
