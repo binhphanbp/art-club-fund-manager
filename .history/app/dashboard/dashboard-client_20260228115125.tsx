@@ -20,7 +20,6 @@ import {
   Guitar,
   Headphones,
   Disc3,
-  User as UserIcon,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { createClient } from '@/lib/supabase/client';
